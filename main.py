@@ -14,10 +14,9 @@ def print_byte(pix_byte):
             print_count = 0
             print(' ')
 
-font = ChineseFont('font_db.data', 32, True)
+font = ChineseFont('font_32.data')
 
-print("言 is exist: %s" % font.is_exist(b'言'))
-
-font_map = font.get_bit_map(b'言')
+font_map = font.get_bit_map('我')
+print(font_map)
 for pix_byte in font_map:
     print_byte(pix_byte)

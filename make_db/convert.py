@@ -57,15 +57,31 @@ if __name__=='__main__':
     font = ImageFont.truetype(sys.argv[1], size)
     print_import('读取字形文件\nover')
 
-    # [utf8编码长度，1byte][utf8编码，1 or 3 byte][字形数据，size*size/8 bytes]
-    with open('font.data', 'wb') as fp:
-        for chart in charts:
+    # [字形大小][字符总数][字形数据][utf8编码：排序]
+    with open('build/font_' + str(size) + '.data', 'wb') as fp:
+        # 字符大小，占用2byte
+        fp.write(size.to_bytes(2, 'big'))
+        # 字符长度，占用4byte
+        fp.write(len(charts).to_bytes(4, 'big'))
+
+        char_bin_data_list = []
+        char_bin_data_map = {}
+        # i从0开始
+        for i, chart in enumerate(charts):
             char_bin_data = convert_chart(chart, font, size, auto_cut)
-            chart_key = bytes(chart,encoding='utf-8')
-            if(len(chart_key) == 1): 
-                fp.write(b'\x01')
-            else:
-                fp.write(b'\x03')
-            fp.write(chart_key)
+            # [utf8编码长度，占用1byte][utf8编码，占用1或3type][排序，占用4byte]
+            chart_byte = bytes(chart,encoding='utf-8')
+            chart_key = len(chart_byte).to_bytes(1, 'big')
+            chart_key = chart_key + bytes(chart,encoding='utf-8')
+
+            char_bin_data_map[chart_key] = i.to_bytes(4, 'big')
+            char_bin_data_list.append(char_bin_data)
+        # 写入字形数据
+        for char_bin_data in char_bin_data_list:
             fp.write(char_bin_data)
+        # 写入字典
+        for key, value in char_bin_data_map.items():
+            fp.write(key)
+            fp.write(value)
+
     print_import('写入中间文件\nover')
