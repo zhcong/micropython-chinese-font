@@ -57,7 +57,7 @@ if __name__=='__main__':
     font = ImageFont.truetype(sys.argv[1], size)
     print_import('读取字形文件\nover')
 
-    # [字形大小][字符总数][字形数据][utf8编码：排序]
+    # [字形图案大小][字符总数][字形数据][utf8编码：排序]
     with open('build/font_' + str(size) + '.data', 'wb') as fp:
         # 字符大小，占用2byte
         fp.write(size.to_bytes(2, 'big'))
@@ -69,7 +69,7 @@ if __name__=='__main__':
         # i从0开始
         for i, chart in enumerate(charts):
             char_bin_data = convert_chart(chart, font, size, auto_cut)
-            # [utf8编码长度，占用1byte][utf8编码，占用1或3type][排序，占用4byte]
+            # [utf8编码长度，占用1byte][utf8编码，占用1或3bype][排序，占用4byte]
             chart_byte = bytes(chart,encoding='utf-8')
             chart_key = len(chart_byte).to_bytes(1, 'big')
             chart_key = chart_key + bytes(chart,encoding='utf-8')
