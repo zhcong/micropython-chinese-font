@@ -1,11 +1,14 @@
 # 1、convert.py
 该脚本运行在pc即可 <br/>
 ```
-python3 convert.py 字形文件.otf 常用汉字集.txt 字符图案大小 是否裁剪
+python3 convert.py 字形文件.otf 常用汉字集.txt 字符图案大小 字符抬高像素
 ```
-其中是否裁剪指由于部分字体会留空，是否需要忽略，示例：
+其中字符抬高像素是指有些字体会前几行留空，需要抬高
+
+示例：
+
 ```
-python3 convert.py 思源雅黑.otf 常用汉字集.txt 64 true
+python3 convert.py 思源雅黑.otf 常用汉字集.txt 64 6
 ```
 将otf格式的字形文件，按照常用汉字集中出现的字符，生成字符文件位于`build`下。
 # 2、生成文件格式
