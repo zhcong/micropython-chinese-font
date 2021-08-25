@@ -4,7 +4,11 @@
 
 # 2、字库使用
 
-示例见`main.py`，主要功能类为`ChineseFont.py`，字库文件`font_32.data`，是生成好了的32x32大小的字符bitMap
+示例见`main.py`，主要功能类为`ChineseFont.py`，字库文件`font_32.data`，是生成好了的32x32大小的字符bitMap</br>
+获取bitmap代码
+```python
+font_map = font.get_bit_map('我')
+```
 
 使用时将`ChineseFont.py`和`font_32.data`拷贝至板子上即可
 
