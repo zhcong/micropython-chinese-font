@@ -19,7 +19,7 @@ class ChineseFont:
         if not self.is_exist(key):
             return bytearray()
         sort = self.__map[key]
-        self.__db_file.seek(2 + 4 + int((self.__font_size * self.__font_size * self.__font_count) / 8) * sort)
+        self.__db_file.seek(2 + 4 + int((self.__font_size * self.__font_size) / 8) * sort)
         return self.__db_file.read(int((self.__font_size * self.__font_size) / 8))
 
     def close(self):
